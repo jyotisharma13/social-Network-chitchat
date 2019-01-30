@@ -14,3 +14,11 @@ module.exports.registerUser = function(first, last, email, hashedpass) {
         [first, last, email, hashedpass]
     );
 };
+///////////////////////////////////////////
+
+module.exports.getLoginInfo = function(email) {
+    return db.query(`SELECT * FROM users where email = $1`,
+        [email]
+    );
+};
+////////////////////////////////////////////////
