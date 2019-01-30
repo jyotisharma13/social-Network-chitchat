@@ -1,0 +1,7 @@
+login component and switching topic
+1.it is almost identical as registration component
+2.location.reload
+import {Link, route, hashrouter} from react-router-dom;
+<Link to="/login"> LOG IN</link>
+///////////////////
+we should use this in the dunction as well

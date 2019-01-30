@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+// import {Link,} from 'react-router-dom';  //HashRouter, Route
+
 export class Registration extends React.Component{
     constructor(props){
         super(props);
@@ -7,14 +9,15 @@ export class Registration extends React.Component{
         this.handleChange= this.handleChange.bind(this);
         this.submit= this.submit.bind(this);
     }
-    handlebarChange(e){
+    handleChange(e){
         // this[e.target.name] = e.target.value;
         this.setState({
             [e.target.name] : e.target.value
         });
     }
     submit(){
-        axios.post('/register',{
+        console.log("first,last,email",this.first,this.last,this.email);
+        axios.post('/welcome/register',{
             first: this.first,
             last: this.last,
             email: this.email,
@@ -39,7 +42,7 @@ export class Registration extends React.Component{
                 <input name="last" placeholder="last Name" onChange={this.handleChange} />
                 <input name="email" placeholder="email" onChange={this.handleChange} />
                 <input name="password" placeholder="password" type="password" onChange={this.handleChange} />
-                <button onClick={this.submit}>REGISTER</button>
+                <button onClick={this.submit}>SUBMIT</button>
             </div>
 
         );
@@ -49,8 +52,14 @@ export class Registration extends React.Component{
 
 export function Welcome(){
     return (
-        <div>
-            <Registration />
+        <div className="welcome-page">
+            <h1>Chit Chat Fun!</h1>
+            <img src="/logo.png" />
+            <h3>Register and make online friends</h3>
+            <div>
+                <Registration />
+            </div>
+            <p>Already a Register? <a href="#">Log in</a> here.</p>
         </div>
     );
 }

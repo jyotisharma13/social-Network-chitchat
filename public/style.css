@@ -1,5 +1,7 @@
 main {
-    background-color: red;
+    background-color: blue;
     height:800px;
-
+}
+img{
+    justify-content: center;
 }

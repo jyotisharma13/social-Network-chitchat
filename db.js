@@ -8,9 +8,9 @@ if (process.env.DATABASE_URL) {
     db = spicedPg(`postgres:${dbUser}:${dbPass}@localhost:5432/social`);
 }
 /////////////////////////////////////////
-//adduser=register user
-module.exports.registerUser = function(first, last, email, password) {
+
+module.exports.registerUser = function(first, last, email, hashedpass) {
     return db.query(`INSERT INTO users (first, last, email, password) VALUES ($1, $2, $3, $4) returning *`,
-        [first, last, email, password]
+        [first, last, email, hashedpass]
     );
 };

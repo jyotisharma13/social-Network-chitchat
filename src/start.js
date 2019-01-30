@@ -10,7 +10,6 @@ if (location.pathname == '/welcome') {
 } else {
     thingToRender = <img src="/logo.png" />;
 }
-
 ReactDOM.render(
     thingToRender,
     document.querySelector('main')
