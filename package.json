@@ -52,6 +52,9 @@
         "webpack": "^1.14.0",
         "webpack-dev-middleware": "^1.8.4"
     },
+    "jest": {
+        "setupFiles": [ "./jest.js" ]
+    },
     "keywords": [],
     "author": "",
     "license": "ISC"
