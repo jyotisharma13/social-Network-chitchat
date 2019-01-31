@@ -8,10 +8,9 @@ export default function ProfilePic(props){
     } else {
         url = props.pro_pic_Url;
     }
-    let name = props.first + ' ' + props.last;
     return (
         <div onClick={props.showUploader}>
-            <img src={url} alt={name} />
+            <img src={url} alt={props.first} />
 
         </div>
     );

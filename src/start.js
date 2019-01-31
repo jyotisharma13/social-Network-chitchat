@@ -17,20 +17,3 @@ ReactDOM.render(
 );
 
 ///////////////////////////
-// let component;
-// if (location.pathname == "/welcome") {
-//     component = <Welcome />;
-//     console.log("logged OUT");
-// } else {
-//     // getSocket(store);
-//     component = (
-//         // <Provider store={store}>
-//         <App />
-//         // </Provider>
-//     );
-//
-//     console.log("LOGGED IN");
-// }
-// ReactDOM.render(
-//     component,
-//     document.querySelector('main'));
