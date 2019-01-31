@@ -22,3 +22,22 @@ module.exports.getLoginInfo = function(email) {
     );
 };
 ////////////////////////////////////////////////
+module.exports.getUserInfo = function(user_id){
+    return db.query(`SELECT users.first AS first, users.last AS last, users.id AS id, profile_images.img_url AS url
+        FROM users
+        LEFT JOIN profile_images
+        ON users.id = profile_images.user_id
+        WHERE users.id = $1`,
+    [user_id]);
+};
+///////////////////////////////////
+module.exports.addImage = function(url, user_id) {
+    return db.query(
+        `INSERT INTO profile_images (img_url, user_id)
+        VALUES ($1, $2)
+        ON CONFLICT (user_id)
+        DO UPDATE SET url = $1
+        RETURNING url`,
+        [url, user_id]
+    );
+};

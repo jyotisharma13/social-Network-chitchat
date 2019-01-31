@@ -1,7 +1,40 @@
-login component and switching topic
-1.it is almost identical as registration component
-2.location.reload
-import {Link, route, hashrouter} from react-router-dom;
-<Link to="/login"> LOG IN</link>
-///////////////////
-we should use this in the dunction as well
+1. get info about the logged in user
+   - in componentDidMount of App, make axios request to server to get data about the logged in user
+   - put this data in state of App
+2. pass data about user to ProfilePic, so ProfilePic can render it
+   - first, last, profilePicUrl
+3. Uploader component should open as a modal when user clicks on their profile picture
+   - so uploaderIsVisible property in the state of App determines when Uploader should be visible. If uploaderIsVisible is true, then render Uploader. If uploaderIsVisible is false, then don't render the Uploader component
+   - when the user clicks on their profile picture, we need to run a function that will set uploaderIsVisible to true in the state of App
+     - this function will use the setState method to change uploaderIsVisible from false to true
+     - this function must be defined in App and then passed to ProfilePic as a prop. The function will be triggered onClick in the ProfilePic component.
+   - once the modal shows up on click, give yourself a nice break and a treat cuz you earned it! :D
+   - back to work.... from here on out you can reference your Vue project and the upload function you wrote there
+   - capture file user uploaded, append to Form Data, send it to the server using axios
+   - server-side: copy-paste all the boilerplate from the Vue project (like multer, path, uidSafe, s3, post axios route, etc.)
+     - use the same credentials you used in Vue
+   - once you can upload to uploads directory and to Amazon, then you'll need to put the new image in the database (UPDATE query)
+     - store full url (s3Url + filename ) in db
+   - send response back to front-end (React), and as part of response send back the full url you stored in the db
+     - res.json() -- res.json is how we send responses from server to front-end
+   - we're back in React land! Specifically, we're now back in the Uploader component
+     - at this point new image should be in amazon, db, uploads, and when you refresh the page the new image should show up
+   - take full url (the once we stored in the db) and put it in the state of the App component
+     - complication: Uploader has received the full url from the server. But App is actually the one that needs it
+       - Solution: we write the function in App that will store the new profile pic url in state of App, but then pass it to the Uploader component as a prop
+       - we then invoke the function as a prop in Uploader
+       - (this is the same exact thing we did with the function that toggles the Uploader component)
+       - You know you've completed this step when the user can upload a new profile pic and that new profile pic shows up instantly
+
+
+
+app.get('user', aysc(req, res)=>{
+const {rows} = await db.getuser(req.session.userid);
+res.json(rows[0]);
+});
+
+function aync getuserById{
+const {rows} = await db.getuser(`select
+* from users where id= $1`,[id]);
+return rows[0];
+}

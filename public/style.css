@@ -32,23 +32,8 @@ body {
     border-right: 2px;
     border-bottom-color: blue;
 }
-    /* border-bottom-width: thin;
-}
-
-.welcome-page .user-input button {
-    margin: 10% auto;
-    border: 1px solid tomato;
-    color: tomato;
-    background-color: white;
-    font-size: 0.8em;
-    cursor: pointer;
-}
-
-.welcome-page .user-input button:hover {
-    filter: contrast(95%);
-}
-
-.error {
-    margin: 10px auto 20px auto;
-    color: tomato;
+#default_img{
+    float: right;
+    height: 100px;
+    width:100px;
 }
