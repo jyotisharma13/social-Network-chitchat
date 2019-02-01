@@ -16,7 +16,7 @@ body {
 }
 
 .welcome-page img {
-    margin: 3% auto;
+    margin: 2% auto;
 }
 
 .welcome-page .register-comp {
@@ -37,14 +37,14 @@ body {
     height: 100px;
     width:100px;
 }
-#pro_pic{
-
-    float:right;
-    height: 80px;
-    width:80px;
+#logo_img{
+    float: left;
+    height: 200px;
+    width:200px;
 }
-#img_pro{
+#img_pro {
     float:right;
-    height: 80px;
-    width:80px;    
+    height: 100px;
+    width:100px;
+    border-radius: 50%;
 }
