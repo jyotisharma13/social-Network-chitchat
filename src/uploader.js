@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from './axios';
 export default class Uploader extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={};
+        this.uploadFile= this.uploadFile.bind(this);
     }
     uploadFile(e){
         e.preventDefault();
@@ -23,9 +24,10 @@ export default class Uploader extends React.Component{
         // formData.append('name',this.form.name);
         // formData.append('description',this.form.description);
         // post/upload and we are sending files, title, name , description to server as part of the request
-        axios.post('/upload', formData).then(function(response){
+        // var self = this;
+        axios.post('/profilePic/upload', formData).then(response=>{
             console.log("response: ", response);
-            this.props.changePictureUrl(response.data);
+            this.props.changePictureUrl(response.data.image);
         }).catch(error=>{
             console.log(error);
         });

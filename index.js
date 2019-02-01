@@ -18,6 +18,7 @@ app.use(function(req, res, next){
     res.cookie('mytoken', req.csrfToken());
     next();
 });
+
 //////////////////////////////////////////////
 var multer = require('multer');
 var uidSafe = require('uid-safe');
@@ -57,9 +58,9 @@ if (process.env.NODE_ENV != 'production') {
 //directory and changes name of the files
 //to be some unique 24 charaqcter string
 app.post('/profilePic/upload',uploader.single('file'),s3.upload,(req, res)=>{
-    console.log("req.body", req.body);
+    console.log(" /profilePic/upload req.body", req.body);
     //req.file is object that describes the file we just uploaded
-    console.log(req.file);
+    console.log("/profilePic/upload req.file",req.file);
     // next steps: save filename, title, description, name in the image table
     //make new imge render automatically on screen(without reloading the image)
     // res.render('images', ());
@@ -68,7 +69,7 @@ app.post('/profilePic/upload',uploader.single('file'),s3.upload,(req, res)=>{
     ).then(
         ({rows})=>{
             res.json({
-                image:rows[0].url
+                image:rows[0].img_url
             });
         }) .catch(err => {
         console.log('err in post upload:', err);

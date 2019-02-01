@@ -9,9 +9,9 @@ export default function ProfilePic(props){
         url = props.pro_pic_Url;
     }
     return (
-        <div onClick={props.showUploader}>
-            <img src={url} alt={props.first} />
-
+        <div id="pro_pic" onClick={props.showUploader}>
+            <img id="img_pro" src={url} />
+            <h1>{props.first} {props.last}</h1>
         </div>
     );
 }

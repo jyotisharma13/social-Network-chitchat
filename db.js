@@ -31,13 +31,13 @@ module.exports.getUserInfo = function(user_id){
     [user_id]);
 };
 ///////////////////////////////////
-module.exports.addImage = function(url, user_id) {
+module.exports.addImage = function(img_url, user_id) {
     return db.query(
         `INSERT INTO profile_images (img_url, user_id)
         VALUES ($1, $2)
         ON CONFLICT (user_id)
-        DO UPDATE SET url = $1
-        RETURNING url`,
-        [url, user_id]
+        DO UPDATE SET img_url = $1
+        RETURNING img_url`,
+        [img_url, user_id]
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 // import Logo from './logo';
 import ProfilePic from './profilePic';
-import axios from 'axios';
+import axios from './axios';
 import Uploader from './uploader';
 
 export default class App extends React.Component{
@@ -21,7 +21,7 @@ export default class App extends React.Component{
             this.setState({
                 first: results.data.rows[0].first,
                 last: results.data.rows[0].last,
-                pro_pic_Url: results.data.rows[0].img_url
+                pro_pic_Url: results.data.rows[0].url
             });
         }).catch(err => {
             console.log('error in mount app: ', err);
@@ -40,6 +40,7 @@ export default class App extends React.Component{
     }
     render(){
         return(
+
             <div>
                 <img id="logo_img" src="/logo.png" />
                 <ProfilePic
@@ -49,7 +50,7 @@ export default class App extends React.Component{
                     showUploader={this.showUploader}
 
                 />
-                { this.state.uploaderIsVisible && <Uploader changePictureUrl={this.changePictureUrl} /> }
+                { this.state.uploaderIsVisible && <Uploader changePictureUrl = {this.changePictureUrl} /> }
             </div>
             // if left hand side is true then Upload image
             // <h1>welcome, { this.state.first }!!!!!</h1>

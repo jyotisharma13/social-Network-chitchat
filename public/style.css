@@ -37,3 +37,14 @@ body {
     height: 100px;
     width:100px;
 }
+#pro_pic{
+
+    float:right;
+    height: 80px;
+    width:80px;
+}
+#img_pro{
+    float:right;
+    height: 80px;
+    width:80px;    
+}
