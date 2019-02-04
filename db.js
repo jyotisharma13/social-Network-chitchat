@@ -51,12 +51,3 @@ module.exports.updateBio = function(bio, id) {
         [bio, id]
     );
 };
-// module.exports.updateBio = function(id, bio) {
-//     return db.query(`
-//         UPDATE users
-//         SET bio = $2
-//         WHERE id = $1
-//         RETURNING *`,
-//     [id, bio]
-//     );
-// };

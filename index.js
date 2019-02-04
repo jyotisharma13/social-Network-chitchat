@@ -146,21 +146,6 @@ app.post('/updatebio', (req, res) => {
             console.log(err.message);
         });
 });
-//
-// });
-// app.post("/updatebio",(req, res)=>{
-//     const bio = req.body.biodraft;
-//     const email = req.session.email;
-//     console.log('email in updatebio', email);
-//     console.log('bio in updatebio', bio);
-//     // console.log('user_id in update', req.session.userId);
-//     db.updateBio(bio, email).then(({rows})=>{
-//         console.log(rows[0]);
-//         res.json(rows[0]);
-//     });
-// });
-
-
 
 /////////////////////////////////////////////////////
 app.get('*', function(req, res) {

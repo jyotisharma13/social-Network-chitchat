@@ -17,6 +17,3 @@ export function ProfilePic(props){
         </div>
     );
 }
-// <h1>welcome, {props.first} {props.last}{props.pro_pic_Url}</h1>
-// <img src="/defaultimage.jpg" />
-// <h1 >{props.first}</h1>
