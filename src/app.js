@@ -4,20 +4,21 @@ import React from 'react';
 import axios from './axios';
 import {Uploader} from './uploader';
 import {Profile} from './profile';
-import {BioEditor} from './bioEditor';
+// import {BioEditor} from './bioEditor';
 import {Header} from "./header";
 
 export default class App extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            uploaderIsVisible:false
+            uploaderIsVisible:false,
+            bioEditorIsVisible: false
         };
         this.showUploader = this.showUploader.bind(this);
         this.changePictureUrl=this.changePictureUrl.bind(this);
         this.updateProfileBio = this.updateProfileBio.bind(this);
         this.HideUploader = this.HideUploader.bind(this);
-
+        this.toggleBioEditor = this.toggleBioEditor.bind(this);
 
     }
     //componentDidMount is the react equivalent of mounted in VALUES
@@ -51,14 +52,17 @@ export default class App extends React.Component{
             uploaderIsVisible: false
         });
     }
+    toggleBioEditor() {
+        this.setState({
+            bioEditorIsVisible: !this.state.bioEditorIsVisible
+        });
+    }
     updateProfileBio(bio){
         console.log("updateBio running!");
         this.setState({
             bio: bio
         });
     }
-
-
     render(){
         return(
             <div className="app_container">
@@ -78,6 +82,9 @@ export default class App extends React.Component{
                         showUploader={this.showUploader}
                         bio={this.state.bio}
                         updateProfileBio={this.updateProfileBio}
+                        ShowUploader = {this.ShowUploader}
+                        toggleBioEditor={this.toggleBioEditor}
+                        bioEditorIsVisible={this.state.bioEditorIsVisible}
                     />
                     {this.state.uploaderIsVisible && <Uploader
                         first={this.state.first}
@@ -86,11 +93,7 @@ export default class App extends React.Component{
                         HideUploader={this.HideUploader}
                         changePictureUrl={this.changePictureUrl}
                     />}
-                    <BioEditor
-                        bio={this.state.bio}
-                        ShowUploader = {this.ShowUploader}
-                        updateProfileBio={this.updateProfileBio}
-                    />
+
                 </div>
             </div>
 

@@ -133,18 +133,21 @@ app.post('/welcome/login', (req, res)=>{
 /////////////////////////////////////////////
 app.post('/updatebio', (req, res) => {
     const bio = req.body.biodraft;
-    const id = req.session.id;
-    console.log('userId in updatebio', req.session.id);
-    console.log('email:',req.session.email);
-    console.log('req.body.bio in updatebio', req.body.biodraft);
-    db.updateBio(id,bio)
-        .then(data => {
-            console.log('data in upbio:',data);
-            res.json(data);
-        })
-        .catch(err => {
-            console.log(err.message);
-        });
+    // const id = req.session.id;
+    // const email = req.session.email;
+    // const email = req.body.email;
+    console.log('/updatebio userid hello:',req.session.userId);
+    console.log('/updatebio session id hello:',req.session.id);
+    console.log('/sesson body id:hello',req.body.id);
+    console.log('req.body.bio in updatebio hello', req.body.biodraft);
+    db.updateBio(bio, req.session.userId).then((data) => {
+        res.json(data.rows[0].bio);
+    }).catch(err => {
+        console.log("error while updating bio: ", err);
+        // res.json({error: true});
+    });
+
+
 });
 
 /////////////////////////////////////////////////////

@@ -70,18 +70,22 @@ body {
     width:100px;
     /* border-radius: 50%; */
 }
-#bioeditor_comp{
+/* #bioeditor_comp{
     border:1px solid black;
     height:30vh;
     width:40vh;
-}
-#profile_container #bioeditor-comp{
+} */
+/* #profile_container #bioeditor-comp{
+
     float:left;
     border: 1px solid black;
   margin-top: 200px;
   margin-bottom: 100px;
   margin-right: 150px;
   margin-left: 0px;
+} */
+#pro_bio_comp{
+    display: inline-block;
 }
 .app_container{
 

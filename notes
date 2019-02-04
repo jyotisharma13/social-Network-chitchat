@@ -38,3 +38,25 @@ const {rows} = await db.getuser(`select
 * from users where id= $1`,[id]);
 return rows[0];
 }
+..................part 5.............................
+->History API
+->history.pushState({},'','/funky/chicken');
+chnage the url without changing manuallly we used pushState for that.
+->addEventListener('popstate',e=>
+console.log(location.href));
+browser route one for profil and one for other profile
+other profile route
+
+<Route path="/user/:id" component={otherprofile} />
+app.get('/user/:id/info', (req, res)=>{
+db.query(req.params.id);
+})
+
+import {BrowserRouter, Route} from 'react-dom';
+
+this.props.match.params.id;
+
+---------------------------------------
+if (data.reirectTo){
+this.props.history.push(data.redirectTo);
+}

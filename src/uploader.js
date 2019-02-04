@@ -1,4 +1,3 @@
-
 import React from 'react';
 import axios from './axios';
 
@@ -61,6 +60,7 @@ export class Uploader extends React.Component {
                         first={this.props.first}
                         last={this.props.last}
                         pro_pic_Url={this.props.pro_pic_Url}
+                        email={this.props.email}
                     />
                     <h3>Change profile picture</h3>
                     <label className="custom-file-upload">

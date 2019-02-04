@@ -43,11 +43,13 @@ module.exports.addImage = function(img_url, user_id) {
     );
 };
 //////////////////////////////////////////////
+
 module.exports.updateBio = function(bio, id) {
-    return db.query(
-        `UPDATE users SET bio = $2
-        WHERE id = $1
-        RETURNING *`,
-        [bio, id]
+    return db.query(`
+        UPDATE users
+        SET bio = $1
+        WHERE id = $2
+        RETURNING bio`,
+    [ bio, id]
     );
 };
