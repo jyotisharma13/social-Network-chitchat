@@ -14,13 +14,14 @@ app.use(require('body-parser').json());
 app.use(compression());
 app.use(express.static('./public'));
 app.use(csurf());
+
 app.use(function(req, res, next){
     res.cookie('mytoken', req.csrfToken());
     next();
 });
 
 //////////////////////////////////////////////
-var multer = require('multer');
+const multer = require('multer');
 var uidSafe = require('uid-safe');
 var path = require('path');
 const config= require('./config');
@@ -57,7 +58,7 @@ if (process.env.NODE_ENV != 'production') {
 //actually put the files in the uploadedfiles
 //directory and changes name of the files
 //to be some unique 24 charaqcter string
-app.post('/profilePic/upload',uploader.single('file'),s3.upload,(req, res)=>{
+app.post('/profilePic/upload',uploader.single('uploadedFile'),s3.upload,(req, res)=>{
     console.log(" /profilePic/upload req.body", req.body);
     //req.file is object that describes the file we just uploaded
     console.log("/profilePic/upload req.file",req.file);
@@ -129,6 +130,38 @@ app.post('/welcome/login', (req, res)=>{
         res.json({success: false});
     });
 });
+/////////////////////////////////////////////
+app.post('/updatebio', (req, res) => {
+    const bio = req.body.biodraft;
+    const id = req.session.id;
+    console.log('userId in updatebio', req.session.id);
+    console.log('email:',req.session.email);
+    console.log('req.body.bio in updatebio', req.body.biodraft);
+    db.updateBio(id,bio)
+        .then(data => {
+            console.log('data in upbio:',data);
+            res.json(data);
+        })
+        .catch(err => {
+            console.log(err.message);
+        });
+});
+//
+// });
+// app.post("/updatebio",(req, res)=>{
+//     const bio = req.body.biodraft;
+//     const email = req.session.email;
+//     console.log('email in updatebio', email);
+//     console.log('bio in updatebio', bio);
+//     // console.log('user_id in update', req.session.userId);
+//     db.updateBio(bio, email).then(({rows})=>{
+//         console.log(rows[0]);
+//         res.json(rows[0]);
+//     });
+// });
+
+
+
 /////////////////////////////////////////////////////
 app.get('*', function(req, res) {
     if (!req.session.userId) {

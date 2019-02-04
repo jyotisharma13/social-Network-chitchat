@@ -1,10 +1,12 @@
 import React from 'react';
-import ProfilePic from './profilePic';
+import {ProfilePic} from './profilePic';
 // import {BioEditor} from './bioEditor'
 
-export default function Profile(props){
+export function Profile(props){
+// default
     return(
         <div id="profile_container">
+
             <ProfilePic
                 onClick={props.showUploader}
                 id={props.id}

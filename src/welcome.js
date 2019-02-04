@@ -83,6 +83,7 @@ export class Registration extends React.Component{
                 //the replace method is perfect because the /welcome route will not even be in browser history (user can't go back there with back button)
                 location.replace('/');
             } else {
+
                 this.setState({
                     error:true
                 });

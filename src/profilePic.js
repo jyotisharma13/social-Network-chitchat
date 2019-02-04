@@ -1,6 +1,7 @@
 import React from 'react';
 
-export default function ProfilePic(props){
+export function ProfilePic(props){
+    // default
     console.log('props:',props);
     // we can see the first name last name and profile pic should be in props.
     let url;
@@ -12,7 +13,7 @@ export default function ProfilePic(props){
     return (
         <div id="pro_pic" onClick={props.showUploader}>
             <img id="img_pro" src={url} />
-
+            <h3>{props.first} {props.last}</h3>
         </div>
     );
 }

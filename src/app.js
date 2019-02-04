@@ -1,10 +1,11 @@
 import React from 'react';
 // import Logo from './logo';
-import ProfilePic from './profilePic';
+// import ProfilePic from './profilePic';
 import axios from './axios';
-import Uploader from './uploader';
-import Profile from './profile';
+import {Uploader} from './uploader';
+import {Profile} from './profile';
 import {BioEditor} from './bioEditor';
+import {Header} from "./header";
 
 export default class App extends React.Component{
     constructor(props){
@@ -14,6 +15,10 @@ export default class App extends React.Component{
         };
         this.showUploader = this.showUploader.bind(this);
         this.changePictureUrl=this.changePictureUrl.bind(this);
+        this.updateProfileBio = this.updateProfileBio.bind(this);
+        this.HideUploader = this.HideUploader.bind(this);
+
+
     }
     //componentDidMount is the react equivalent of mounted in VALUES
     //a Lifecycle method
@@ -35,38 +40,60 @@ export default class App extends React.Component{
             uploaderIsVisible: true
         });
     }
+    HideUploader() {
+        this.setState({
+            uploaderIsVisible: false
+        });
+    }
     changePictureUrl(url) {
         this.setState({
             pro_pic_Url: url,
             uploaderIsVisible: false
         });
     }
+    updateProfileBio(bio){
+        console.log("updateBio running!");
+        this.setState({
+            bio: bio
+        });
+    }
+
+
     render(){
         return(
-
-            <div>
-                <img id="logo_img" src="/logo.png" />
-                <ProfilePic
-                    first ={this.state.first}
+            <div className="app_container">
+                <img id="logo_img1" src="/logo.png" />
+                <Header
+                    first={this.state.first}
                     last={this.state.last}
                     pro_pic_Url={this.state.pro_pic_Url}
                     showUploader={this.showUploader}
                 />
-                <Profile
-                    id={this.state.id}
-                    first ={this.state.first}
-                    last={this.state.last}
-                    pro_pic_Url={this.state.pro_pic_Url}
-                    showUploader={this.showUploader}
-                    bio={this.state.bio}
-                />
-                <BioEditor
-                    bio={this.state.bio}
-                />
-                { this.state.uploaderIsVisible && <Uploader changePictureUrl = {this.changePictureUrl} /> }
+                <div className="app_comp2">
+                    <Profile
+                        id={this.state.id}
+                        first ={this.state.first}
+                        last={this.state.last}
+                        pro_pic_Url={this.state.pro_pic_Url}
+                        showUploader={this.showUploader}
+                        bio={this.state.bio}
+                        updateProfileBio={this.updateProfileBio}
+                    />
+                    {this.state.uploaderIsVisible && <Uploader
+                        first={this.state.first}
+                        last={this.state.last}
+                        pro_pic_Url={this.state.pro_pic_Url}
+                        HideUploader={this.HideUploader}
+                        changePictureUrl={this.changePictureUrl}
+                    />}
+                    <BioEditor
+                        bio={this.state.bio}
+                        ShowUploader = {this.ShowUploader}
+                        updateProfileBio={this.updateProfileBio}
+                    />
+                </div>
             </div>
-            // if left hand side is true then Upload image
-            // <h1>welcome, { this.state.first }!!!!!</h1>
+
         );
     }
 }

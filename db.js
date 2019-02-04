@@ -23,12 +23,13 @@ module.exports.getLoginInfo = function(email) {
 };
 ////////////////////////////////////////////////
 module.exports.getUserInfo = function(user_id){
-    return db.query(`SELECT users.first AS first, users.last AS last, users.id AS id, profile_images.img_url AS url
+    return db.query(`SELECT users.first AS first, users.last AS last, users.id AS id, users.bio AS bio, profile_images.img_url AS url, users.email AS email
         FROM users
         LEFT JOIN profile_images
         ON users.id = profile_images.user_id
         WHERE users.id = $1`,
-    [user_id]);
+    [user_id]
+    );
 };
 ///////////////////////////////////
 module.exports.addImage = function(img_url, user_id) {
@@ -41,3 +42,21 @@ module.exports.addImage = function(img_url, user_id) {
         [img_url, user_id]
     );
 };
+//////////////////////////////////////////////
+module.exports.updateBio = function(bio, id) {
+    return db.query(
+        `UPDATE users SET bio = $2
+        WHERE id = $1
+        RETURNING *`,
+        [bio, id]
+    );
+};
+// module.exports.updateBio = function(id, bio) {
+//     return db.query(`
+//         UPDATE users
+//         SET bio = $2
+//         WHERE id = $1
+//         RETURNING *`,
+//     [id, bio]
+//     );
+// };

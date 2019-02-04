@@ -1,33 +1,49 @@
-import React from 'react';
+import React from "react";
 import axios from './axios';
-export class BioEditor extends React.Component{
-    constructor(props){
+
+
+export class BioEditor extends React.Component {
+    constructor(props) {
         super(props);
-        this.state={};
-        this.handleChange= this.handleChange.bind(this);
-        this.submit= this.submit.bind(this);
+        this.handleEditing = this.handleEditing.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.updateBio = this.updateBio.bind(this);
+        this.state = {
+            editing: false,
+            biodraft: ""
+        };
     }
-    handleChange(e){
-        // this[e.target.name] = e.target.value;
-        this.setState({
-            [e.target.name] : e.target.value
+    updateBio(){
+        axios.post("/updatebio" ,{
+            biodraft: this.state.biodraft
+        }).then(({data})=>{
+            console.log("data in updateBio", data);
+            this.props.updateProfileBio(data.bio);
+
         });
     }
-    submit(){
-        axios.post('./bio',{
-            bio:this.state.bio
-        }.then(results =>{
-            console.log("./bio results",results);
-        }));
-    }
-    render(){
-        return (
-            <div className="bioeditor-comp">
-                {this.state.error && <div className="error">Oops, something went wrong!</div>}
-                <textarea name="bio"  onChange={this.handleChange}/>
-                <button onClick={this.submit}>SAVE</button>
-            </div>
 
+    handleEditing(){
+        this.setState(()=>{
+            return {
+                editing:true
+
+            };
+        });
+    }
+
+    handleChange(e){
+        this.setState({biodraft: e.target.value});
+    }
+
+
+    render() {
+        return (
+            <div id="bioeditor_comp">
+                <h1>{this.state.first}{this.props.last}</h1>
+                {this.props.bio ? (<div><p>{this.props.bio}</p> <button onClick={this.handleEditing}>Edit Bio</button></div>) : (<div>Want to write Bio<button onClick={this.handleEditing}>Add Bio</button></div>)}
+                {this.state.editing && <div><textarea name="textarea" placeholder="Enter Bio Here" onChange={this.handleChange}></textarea> <button onClick={this.updateBio}>UPDATE</button></div>}
+            </div>
         );
     }
 }
