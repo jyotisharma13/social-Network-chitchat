@@ -1,4 +1,4 @@
-import React from "React";
+import React from "react";
 import axios from "./axios";
 
 export default class FriendButton extends React.Component {
@@ -22,12 +22,18 @@ export default class FriendButton extends React.Component {
                 self.setState({
                     buttonText: 'Unfriend'
                 });
+            } else if (resp.data.rows[0].sender_id == this.props.otherUserId
+                && resp.data.rows[0].accepted == false){
+                this.setState({
+                    buttonText: 'Accept Friend Request'
+                });
             } else {
                 console.log("not accepted");
-                self.setState({
+                this.setState({
                     buttonText: 'Cancel Friend Request'
                 });
             }
+
         });
     }
     updateFriendship(){
@@ -40,23 +46,22 @@ export default class FriendButton extends React.Component {
         } else if (self.state.buttonText == 'Cancel Friend Request'){
             axios.post('/deletefriendship/'+ self.props.otherUserId);
             self.setState({
-                buttonText: 'Cancel Friend Request'
+                buttonText: 'send Friend Request'
             });
-        } 
+        }
+        else if (this.state.buttonText == 'Accept Friend Request'){
+            axios.post('/acceptfriendship/'+ this.props.otherUserId);
+            this.setState({
+                buttonText: 'Unfriend'
+            });
+        } else if (this.state.buttonText == 'Unfriend'){
+            axios.post('/deletefriendship/'+ this.props.otherUserId);
+            this.setState({
+                buttonText: 'Send Friend Request'
+            });
+        }
 
-        axios.get('/addfriendship/'+ self.props.otherUserId).then((resp) => {
-            var accepted = resp.data.rows[0].accepted;
-            console.log("accepted", accepted);
-            if (accepted) {
-                self.setState= {
-                    buttonText: 'Unfriend'
-                };
-            } else {
-                self.setState= {
-                    buttonText: 'Cancel Friend request'
-                };
-            }
-        });
+
     }
     render(){
         return(

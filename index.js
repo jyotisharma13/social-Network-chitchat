@@ -159,12 +159,7 @@ app.get('/user/:id.json', (req, res)=>{
 
 ///////////////////////////////////
 app.get('/get-initial-status/:id',(req, res)=>{
-    // req.session.userid 1
-    //req.params.id 2
-    // if i switch the order and i now login as user 1 and i go to user 2s page
-    // req.session.userid 1
-    //reqparams.id 2
-    db.getInitialFriendship(req.session.userId,req.params.id).then(results=>{
+    db.getInitialFriendship(req.session.userId,req.params.id).then((results)=>{
         console.log('resultsssssssssssss', results);
         res.json(results);
     }).catch(error=>{
@@ -172,15 +167,22 @@ app.get('/get-initial-status/:id',(req, res)=>{
     });
 });
 ///////////////////////////////////////////
-app.get('/addfriendship/:id', (req, res) => {
-    db.makeFriendRequest(req.session.userId, req.params.id).then((results) => {
+app.post('/addfriendship/:id', (req, res) => {
+    db.addfriendship(req.session.userId, req.params.id).then((results) => {
         console.log(results);
         res.json(results);
     });
 });
 ////////////////////////////////////
 app.post('/deletefriendship/:id', (req, res) => {
-    db.deleteFriendRequest(req.session.userId, req.params.id).then((results) => {
+    db.deletefriendship(req.session.userId, req.params.id).then((results) => {
+        console.log(results);
+        res.json(results);
+    });
+});
+////////////////////////////
+app.post('/acceptfriendship/:id', (req, res) => {
+    db.acceptFriendship(req.session.userId, req.params.id).then((results) => {
         console.log(results);
         res.json(results);
     });

@@ -25,7 +25,7 @@ export default class App extends React.Component{
     //componentDidMount is the react equivalent of mounted in VALUES
     //a Lifecycle method
     componentDidMount() {
-        axios.get('./user').then(results => {
+        axios.get('/user').then(results => {
             console.log("componentDidMount() results:",results);
             this.setState({
                 first: results.data.rows[0].first,

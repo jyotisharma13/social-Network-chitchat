@@ -45,18 +45,18 @@ module.exports.addImage = function(img_url, user_id) {
 /////////////////////////////////7
 
 //////////////////////////////////////////////
-module.eports.getInitialFriendship = function(loggedInId, loggedOutId){
+module.exports.getInitialFriendship = (loggedInId, otherUserId)=>{
     return db.query(`select * from friendships
         where (recipient_id =$1 AND sender_id =$2) OR
 (recipient_id =$2 AND sender_id =$1 )`,
-    [loggedInId, loggedOutId]
+    [loggedInId, otherUserId]
     );
 };
 /////////////////////////////////////
-module.export.addfrinedship = function(sender_id,recipient_id){
-    return db.query(`INSERT INTO friendships(sender_id,recipient_id)
+module.exports.addfriendship = (loggedInId, otherUserId)=>{
+    return db.query(`INSERT INTO friendships (recipient_id, sender_id)
      VALUES ($1, $2) returning *`,
-    [sender_id,recipient_id]
+    [loggedInId, otherUserId]
     );
 };
 ///////////////////////////////
@@ -65,6 +65,16 @@ module.exports.deletefriendship = (loggedInId, otherUserId)=>{
         `DELETE FROM friendships
         WHERE (recipient_id = $1 AND sender_id = $2)
         OR (recipient_id = $2 AND sender_id = $1)`, [loggedInId, otherUserId]
+    );
+};
+///////////////////////////////
+module.exports.acceptfriendship = (loggedInId, otherUserId)=>{
+    return db.query(
+        `UPDATE friendships
+        SET  accepted = true
+        WHERE (recipient_id = $1 AND sender_id = $2)
+        OR (recipient_id = $2 AND sender_id = $1)
+        `, [loggedInId, otherUserId]
     );
 };
 ////////////////////////////////////////
