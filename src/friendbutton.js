@@ -1,43 +1,67 @@
-import React from 'react';
-// import axios from './axios';
+import React from "React";
+import axios from "./axios";
 
-export default class FriendButton extends React.Component{
-    constructor(){
-        super();
-        this.state={
-            ButtonText:'Make Friend Request'
+export default class FriendButton extends React.Component {
+    constructor(props){
+        super(props);
+        this.state= {
+            buttonText: 'Send Friend Request'
         };
-
+        this.updateFriendship = this.updateFriendship.bind(this);
     }
-    //     componentDidMount(){
-    //         //we are to get the initial status of the frinedship
-    //         //based off of the initial status we are going to render the appropriate button
-    //         // GET /get-intial-status/3
-    //         axios.get('/get-initial-status/' + this.props.otheruserId).then(resp => {
-    //             // see what inside of resp, and set the setState
-    //             // of the button based off of whats in the responses// if we got nothing back from the database..
-    //
-    //             //button should say 'make friend request'
-    //             // if we got something back from the database,
-    //             // and if accepted is registerUser// button should say 'end friendship'
-    //
-    //             // if the accepted the column is false
-    //             // in this case, should the button say accept o "cancel friends request"
-    //         });
-    //     }
-    //     updateFriendship(){
-    //         // heres where all the post routes are going to go
-    //         // what does buttonText say? do something differnet
-    //         //based off of what buttonText says!
-    //
-    //         // ie if the button say' make friend request when it whats
-    //         //clicked, then we need to insert into frinedships table
-    //     }
+    componentDidMount(){
+        const self = this;
+        axios.get('/get-initial-status/'+ self.props.otherUserId).then((resp) => {
+            if (!resp.data.rows[0]) {
+                console.log("no resp");
+                self.setState({
+                    buttonText: 'Send Friend request'
+                });
+            } else if (resp.data.rows[0].accepted == true){
+                console.log("it's accepted");
+                self.setState({
+                    buttonText: 'Unfriend'
+                });
+            } else {
+                console.log("not accepted");
+                self.setState({
+                    buttonText: 'Cancel Friend Request'
+                });
+            }
+        });
+    }
+    updateFriendship(){
+        const self = this;
+        if (self.state.buttonText == 'Send Friend request'){
+            axios.get('/addfriendship/'+ self.props.otherUserId);
+            self.setState({
+                buttonText: 'Cancel Friend Request'
+            });
+        } else if (self.state.buttonText == 'Cancel Friend Request'){
+            axios.post('/deletefriendship/'+ self.props.otherUserId);
+            self.setState({
+                buttonText: 'Cancel Friend Request'
+            });
+        } 
+
+        axios.get('/addfriendship/'+ self.props.otherUserId).then((resp) => {
+            var accepted = resp.data.rows[0].accepted;
+            console.log("accepted", accepted);
+            if (accepted) {
+                self.setState= {
+                    buttonText: 'Unfriend'
+                };
+            } else {
+                self.setState= {
+                    buttonText: 'Cancel Friend request'
+                };
+            }
+        });
+    }
     render(){
-        console.log('this.props.otheruserId:', this.props.otheruserId);
         return(
-            <button > { this.state.ButtonText }</button>
+            <button onClick={this.updateFriendship}> { this.state.buttonText } </button>
         );
     }
+
 }
-// onClick ={this.updateFriendship}

@@ -41,9 +41,12 @@ export class OtherProfile extends React.Component {
                         <div className="bio-container"><h3> {this.state.bio}</h3></div>
                     </div>
                 </div>
-                <div id="friend_button"> <FriendButton /> </div>
+                <div id="friend_button"> <FriendButton
+                    otherUserId = { this.props.match.params.id }
+                /> </div>
             </div>
 
         );
     }
 }
+// <img id="logo_img1" src="/logo.png" />

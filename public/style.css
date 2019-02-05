@@ -88,14 +88,13 @@ body {
     display: inline-block;
 }
 #otherprofile_com{
-    float: left;
+    display:block;
     height: 200px;
     width:200px;
     border: 2px solid black;
 }
 #friend_button{
-    float:left;
-    float:bottom;
+    display:center;
 }
 .app_container{
 

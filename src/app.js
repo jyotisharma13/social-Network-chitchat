@@ -9,8 +9,6 @@ import {OtherProfile} from './otherprofile';
 import { Route} from 'react-router';
 import {BrowserRouter} from 'react-router-dom';
 
-
-
 export default class App extends React.Component{
     constructor(props){
         super(props);
@@ -23,7 +21,6 @@ export default class App extends React.Component{
         this.updateProfileBio = this.updateProfileBio.bind(this);
         this.HideUploader = this.HideUploader.bind(this);
         this.toggleBioEditor = this.toggleBioEditor.bind(this);
-
     }
     //componentDidMount is the react equivalent of mounted in VALUES
     //a Lifecycle method
@@ -109,9 +106,19 @@ export default class App extends React.Component{
 
                         )}
                     />
-                    <Route path="/user/:id" component={OtherProfile} />
+                    <Route
+                        path="/user/:id"
+                        render={props => (
+                            <OtherProfile
+                                key={props.match.url}
+                                match={props.match}
+                                history={props.history}
+                            />
+                        )}
+                    />
                 </div>
             </BrowserRouter>
         );
     }
 }
+// <Route path="/user/:id" component={OtherProfile} />
