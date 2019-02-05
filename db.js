@@ -42,8 +42,14 @@ module.exports.addImage = function(img_url, user_id) {
         [img_url, user_id]
     );
 };
-//////////////////////////////////////////////
+/////////////////////////////////7
 
+//////////////////////////////////////////////
+// module.eports.getINitialFriendship = function(loggedInId, loggedOutId){
+//     db.query(`select * from friendships where (recipient_id =$1 AND sender_id =$2) OR
+// (recipient_id =$2 AND sender_id =$1 )`,[loggedInId, loggedOutId]);
+// };
+////////////////////////////////////////
 module.exports.updateBio = function(bio, id) {
     return db.query(`
         UPDATE users

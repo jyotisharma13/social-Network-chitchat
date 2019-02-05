@@ -133,22 +133,39 @@ app.post('/welcome/login', (req, res)=>{
 /////////////////////////////////////////////
 app.post('/updatebio', (req, res) => {
     const bio = req.body.biodraft;
-    // const id = req.session.id;
-    // const email = req.session.email;
-    // const email = req.body.email;
     console.log('/updatebio userid hello:',req.session.userId);
-    console.log('/updatebio session id hello:',req.session.id);
-    console.log('/sesson body id:hello',req.body.id);
-    console.log('req.body.bio in updatebio hello', req.body.biodraft);
     db.updateBio(bio, req.session.userId).then((data) => {
         res.json(data.rows[0].bio);
     }).catch(err => {
         console.log("error while updating bio: ", err);
-        // res.json({error: true});
+        res.json({error: true});
     });
 
 
 });
+/////////////////////////////////////////////
+app.get('/user/:id.json', (req, res)=>{
+    console.log('req.params.id', req.params.id);
+    if(req.session.userid== req.params.id){
+        return res.json({redirectTo:'/'});
+    }
+    db.getUserInfo(req.params.id).then(data=>{
+        console.log('data hjjhjkh:',data);
+        res.json(data);
+    }).catch(error=>{
+        console.log('error in getting /user/:id.json:', error);
+    });
+});
+
+///////////////////////////////////
+// app.get('/get-initial-status/:id',(req, res)=>{
+//     // req.session.userid 1
+//     //reqparams.id 2
+//     // if i switch the order and i now login as user 1 and i go to user 2s page
+//     // req.session.userid 1
+//     //reqparams.id 2
+//     db.getINitialFriendship(req.session.userId,req.params.id);
+// });
 
 /////////////////////////////////////////////////////
 app.get('*', function(req, res) {

@@ -44,7 +44,7 @@ return rows[0];
 chnage the url without changing manuallly we used pushState for that.
 ->addEventListener('popstate',e=>
 console.log(location.href));
-browser route one for profil and one for other profile
+browser route one for profile and one for other profile
 other profile route
 
 <Route path="/user/:id" component={otherprofile} />
@@ -60,3 +60,4 @@ this.props.match.params.id;
 if (data.reirectTo){
 this.props.history.push(data.redirectTo);
 }
+-------------------------------------------

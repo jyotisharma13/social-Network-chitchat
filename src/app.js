@@ -1,11 +1,15 @@
 import React from 'react';
-// import Logo from './logo';
 // import ProfilePic from './profilePic';
 import axios from './axios';
 import {Uploader} from './uploader';
 import {Profile} from './profile';
 // import {BioEditor} from './bioEditor';
 import {Header} from "./header";
+import {OtherProfile} from './otherprofile';
+import { Route} from 'react-router';
+import {BrowserRouter} from 'react-router-dom';
+
+
 
 export default class App extends React.Component{
     constructor(props){
@@ -65,38 +69,49 @@ export default class App extends React.Component{
     }
     render(){
         return(
-            <div className="app_container">
-                <img id="logo_img1" src="/logo.png" />
-                <Header
-                    first={this.state.first}
-                    last={this.state.last}
-                    pro_pic_Url={this.state.pro_pic_Url}
-                    showUploader={this.showUploader}
-                />
-                <div className="app_comp2">
-                    <Profile
-                        id={this.state.id}
-                        first ={this.state.first}
-                        last={this.state.last}
-                        pro_pic_Url={this.state.pro_pic_Url}
-                        showUploader={this.showUploader}
-                        bio={this.state.bio}
-                        updateProfileBio={this.updateProfileBio}
-                        ShowUploader = {this.ShowUploader}
-                        toggleBioEditor={this.toggleBioEditor}
-                        bioEditorIsVisible={this.state.bioEditorIsVisible}
+            <BrowserRouter>
+                <div>
+                    <Route
+                        exact
+                        path="/"
+                        render={() => (
+                            <div className="app_container">
+                                <img id="logo_img1" src="/logo.png" />
+                                <Header
+                                    first={this.state.first}
+                                    last={this.state.last}
+                                    pro_pic_Url={this.state.pro_pic_Url}
+                                    showUploader={this.showUploader}
+                                />
+                                <div className="app_comp2">
+                                    <Profile
+                                        id={this.state.id}
+                                        first ={this.state.first}
+                                        last={this.state.last}
+                                        pro_pic_Url={this.state.pro_pic_Url}
+                                        showUploader={this.showUploader}
+                                        bio={this.state.bio}
+                                        updateProfileBio={this.updateProfileBio}
+                                        ShowUploader = {this.ShowUploader}
+                                        toggleBioEditor={this.toggleBioEditor}
+                                        bioEditorIsVisible={this.state.bioEditorIsVisible}
+                                    />
+                                    {this.state.uploaderIsVisible && <Uploader
+                                        first={this.state.first}
+                                        last={this.state.last}
+                                        pro_pic_Url={this.state.pro_pic_Url}
+                                        HideUploader={this.HideUploader}
+                                        changePictureUrl={this.changePictureUrl}
+                                    />}
+
+                                </div>
+                            </div>
+
+                        )}
                     />
-                    {this.state.uploaderIsVisible && <Uploader
-                        first={this.state.first}
-                        last={this.state.last}
-                        pro_pic_Url={this.state.pro_pic_Url}
-                        HideUploader={this.HideUploader}
-                        changePictureUrl={this.changePictureUrl}
-                    />}
-
+                    <Route path="/user/:id" component={OtherProfile} />
                 </div>
-            </div>
-
+            </BrowserRouter>
         );
     }
 }

@@ -87,6 +87,16 @@ body {
 #pro_bio_comp{
     display: inline-block;
 }
+#otherprofile_com{
+    float: left;
+    height: 200px;
+    width:200px;
+    border: 2px solid black;
+}
+#friend_button{
+    float:left;
+    float:bottom;
+}
 .app_container{
 
 }
