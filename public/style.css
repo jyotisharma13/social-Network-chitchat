@@ -70,22 +70,16 @@ body {
     width:100px;
     /* border-radius: 50%; */
 }
-/* #bioeditor_comp{
-    border:1px solid black;
-    height:30vh;
-    width:40vh;
-} */
-/* #profile_container #bioeditor-comp{
 
-    float:left;
-    border: 1px solid black;
-  margin-top: 200px;
-  margin-bottom: 100px;
-  margin-right: 150px;
-  margin-left: 0px;
-} */
 #pro_bio_comp{
-    display: inline-block;
+    /* display: ; */
+    margin-right: 50%;
+    border: 1px solid black;
+    padding: 10px;
+ /* box-shadow: 10px 15px 25px white; */
+ -moz-box-shadow: 0 0 10px 10px black;
+-webkit-box-shadow: 0 0 10px 10px black;
+box-shadow: 0 0 10px 10px black;
 }
 #otherprofile_com{
     display:block;
@@ -93,8 +87,30 @@ body {
     width:200px;
     border: 2px solid black;
 }
+#otherprofile_container{
+    display: flex;
+    justify-content: center;
+
+    height:400px;
+    width: 600px;
+    margin-left: 30%;
+    margin-top: 8%;
+    -moz-box-shadow: 0 0 10px 5px black, 40px -30px lime, 40px 30px 50px red, -40px 30px yellow, -40px -30px 50px blue;
+-webkit-box-shadow: 0 0 10px 5px black, 40px -30px lime, 40px 30px 50px red, -40px 30px yellow, -40px -30px 50px blue;
+box-shadow: 0 0 10px 5px black, 40px -30px lime, 40px 30px 50px red, -40px 30px yellow, -40px -30px 50px blue;
+}
 #friend_button{
-    display:center;
+    display:flex;
+    margin-right: 40%;
+}
+#friend_button0{
+    padding-top: 330px;
+    margin-right: 40%;
+    /* display: inline-block; */
+}
+#otherprofile_comp{
+    margin-left: 40%;
+
 }
 .app_container{
 
@@ -124,6 +140,7 @@ body {
     justify-content: space-between;
     color: blue;
     background-color: white;
+
 }
 /*
 
@@ -194,7 +211,7 @@ body {
 
  .uploader-content button {
     border: 1px solid blue;
-    color: blue;
+    color: tomato;
     background-color:white;
     margin: 10px;
     cursor: pointer;
@@ -214,7 +231,7 @@ body {
 
 .custom-file-upload {
     border: 1px solid blue;
-    color: blue;
+    color: tomato;
     background-color: white;
     cursor: pointer;
 }
