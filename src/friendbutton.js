@@ -39,7 +39,7 @@ export default class FriendButton extends React.Component {
     updateFriendship(){
         const self = this;
         if (self.state.buttonText == 'Send Friend request'){
-            axios.get('/addfriendship/'+ self.props.otherUserId);
+            axios.post('/addfriendship/'+ self.props.otherUserId);
             self.setState({
                 buttonText: 'Cancel Friend Request'
             });

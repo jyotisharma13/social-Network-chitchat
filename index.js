@@ -168,13 +168,18 @@ app.get('/get-initial-status/:id',(req, res)=>{
 });
 ///////////////////////////////////////////
 app.post('/addfriendship/:id', (req, res) => {
+    console.log('in the friendship route');
+    console.log('req.session.userI daddddddddddddddddddddd',req.session.userId);
+    console.log('req.params.id please add ', req.params.id);
     db.addfriendship(req.session.userId, req.params.id).then((results) => {
-        console.log(results);
+        console.log("RESULTS resultssssssssssss",results);
+
         res.json(results);
     });
 });
 ////////////////////////////////////
 app.post('/deletefriendship/:id', (req, res) => {
+    console.log('delete the friendship ');
     db.deletefriendship(req.session.userId, req.params.id).then((results) => {
         console.log(results);
         res.json(results);
@@ -182,6 +187,7 @@ app.post('/deletefriendship/:id', (req, res) => {
 });
 ////////////////////////////
 app.post('/acceptfriendship/:id', (req, res) => {
+    console.log('accept the friendships');
     db.acceptFriendship(req.session.userId, req.params.id).then((results) => {
         console.log(results);
         res.json(results);

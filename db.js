@@ -54,7 +54,7 @@ module.exports.getInitialFriendship = (loggedInId, otherUserId)=>{
 };
 /////////////////////////////////////
 module.exports.addfriendship = (loggedInId, otherUserId)=>{
-    return db.query(`INSERT INTO friendships (recipient_id, sender_id)
+    return db.query(`INSERT INTO friendships (sender_id, recipient_id)
      VALUES ($1, $2) returning *`,
     [loggedInId, otherUserId]
     );
