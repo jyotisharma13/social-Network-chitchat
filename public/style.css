@@ -18,7 +18,11 @@ body {
     -moz-animation: ccfgradient 3s ease infinite;
     animation: ccfgradient 3s ease infinite;
 }
-
+#wannabe_item{
+    height: 200px;
+    width:200px;
+    border-radius: 1px solid green;
+}
 .welcome-page {
     display: flex;
     flex-direction: column;

@@ -78,6 +78,21 @@ module.exports.acceptfriendship = (loggedInId, otherUserId)=>{
     );
 };
 ////////////////////////////////////////
+module.exports.getFriendshipLists = (id)=>{
+    return db.query(
+        `SELECT users.id, first, last, img_url, accepted
+        FROM friendships
+        JOIN users
+        ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)
+        LEFT JOIN profile_images
+        ON users.id = profile_images.user_id
+    `,  [id]
+    );
+};
+///////////////////////////////////////////
+
 module.exports.updateBio = function(bio, id) {
     return db.query(`
         UPDATE users

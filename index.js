@@ -188,10 +188,24 @@ app.post('/deletefriendship/:id', (req, res) => {
 ////////////////////////////
 app.post('/acceptfriendship/:id', (req, res) => {
     console.log('accept the friendships');
-    db.acceptFriendship(req.session.userId, req.params.id).then((results) => {
+    db.acceptfriendship(req.session.userId, req.params.id).then((results) => {
         console.log(results);
         res.json(results);
     });
+});
+////////////////////////////////////////////7
+app.get('/friends/list', (req, res) => {
+    db.getFriendshipLists(req.session.userId).then(results => {
+        console.log('results in friendsList', results);
+        res.json(results);
+    }).catch(err => {
+        console.log("error while getting friendshiplists: ", err);
+    });
+});
+///////////////////////////////////
+app.get('/logout', (req, res) => {
+    req.session = null;
+    res.redirect('/welcome');
 });
 /////////////////////////////////////////////////////
 app.get('*', function(req, res) {
