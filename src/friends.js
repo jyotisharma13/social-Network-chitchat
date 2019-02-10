@@ -13,46 +13,54 @@ class Friends extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="friendsList">
                 <div className="wannabeContainer">
 
                     {this.props.wannabes && this.props.wannabes.map(
                         i => {
                             return (
+
                                 <div key={i.id} className="wannabeItem">
-                                    {<Link to={`/user/${i.id}`} key={i.id}><div>
-                                        <img id="wannabe_item" src={i.img_url} />
-                                        {i.first} {i.last}
+                                    {<Link to={`/user/${i.id}`} key={i.id}><div className="wannabeItemPicture">
+                                        <img id="wannabe_item" src={i.img_url || "/defaultimage.jpg"} />
+
                                     </div>
                                     </Link>}
-                                    <button onClick={
-                                        () => this.props.dispatch(acceptFriendRequest(i.id))
-                                    }>ACCEPT</button>
+                                    <div classsName="wannabe_name">
+                                        <h2>{i.first} {i.last}</h2>
+                                        <button onClick={
+                                            () => this.props.dispatch(acceptFriendRequest(i.id))
+                                        }>ACCEPT</button>
+                                    </div>
                                 </div>
                             );
                         }
                     )}
 
                 </div>
-                <div className="friendsContainer">
+                <div className="friendsListContainer">
+                    <div className="friendsContainer">
+                        {this.props.friends && this.props.friends.map(
+                            i => {
+                                return (
+                                    <div key={i.id} className="friendItem">
+                                        {<Link to={`/user/${i.id}`} key={i.id}><div className="friendItemPicture">
+                                            <img id="wannabe_item" src={i.img_url || "/defaultimage.jpg"} />
 
-                    {this.props.friends && this.props.friends.map(
-                        i => {
-                            return (
-                                <div id="" key={i.id}>
-                                    {<Link to={`/user/${i.id}`} key={i.id}><div>
-                                        <img id="wannabe_item" src={i.img_url} />
-                                        {i.first} {i.last}
+                                        </div>
+                                        </Link>}
+                                        <div className="friend_name">
+                                            <h2>{i.first} {i.last}</h2>
+                                            <button onClick={
+                                                () => this.props.dispatch(unFriend(i.id))
+                                            }> UNFRIEND</button>
+                                        </div>
                                     </div>
-                                    </Link>}
-                                    <button onClick={
-                                        () => this.props.dispatch(unFriend(i.id))
-                                    }>REMOVE FRIEND</button>
-                                </div>
-                            );
-                        }
-                    )}
+                                );
+                            }
+                        )}
 
+                    </div>
                 </div>
             </div>
         );

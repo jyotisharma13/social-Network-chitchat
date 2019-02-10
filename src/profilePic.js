@@ -11,9 +11,11 @@ export function ProfilePic(props){
         url = props.pro_pic_Url;
     }
     return (
-        <div id="pro_pic" onClick={props.showUploader}>
-            <img id="img_pro" src={url} />
-            <h3>{props.first} {props.last}</h3>
+        <div>
+            <div id="pro_pic" onClick={props.showUploader}>
+                <img id="img_pro" src={url} />
+            </div>
+
         </div>
     );
 }

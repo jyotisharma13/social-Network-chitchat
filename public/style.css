@@ -18,10 +18,64 @@ body {
     -moz-animation: ccfgradient 3s ease infinite;
     animation: ccfgradient 3s ease infinite;
 }
+/* .wannabeContainer{
+    margin-top: 10%
+    boarder-radius:2px solid green;
+}
+*/
+.friendsList {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 60px;
+}
+.friendsListContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 40px;
+    width: 50%;
+}
+.wannabeContainer, .friendsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 #wannabe_item{
-    height: 200px;
-    width:200px;
-    border-radius: 1px solid green;
+    border-radius: 50%;
+  border: 2px solid blue;
+  margin-left: 20px;
+    height: 100px;
+    width:100px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+     /* border-radius: 1px solid green;  */
+ }
+
+
+.wannabeItemPicture, .friendItemPicture {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+}
+/* #wannabe_itemItem img{
+    border-radius: 50%;
+    border: 2px solid tomato;
+    margin-left: 10px;
+} */
+.wannabeItem:hover, .friendItem:hover {
+    border: 1px dotted rgb(163, 213, 224);
+    border-radius: 5%;
+    transform: scale(1.05);
+}
+
+.wannabe_name, .friend_name {
+    margin: 35px 25px;
+    font-weight: bold;
 }
 .welcome-page {
     display: flex;
@@ -56,7 +110,8 @@ body {
     border-top: 2px;
     border-left: 2px;
     border-right: 2px;
-    border-bottom-color: blue;
+    /* border-bottom-color: blue; */
+    border-radius: 60 20px;
 }
 #default_img{
     float: right;
@@ -65,55 +120,79 @@ body {
 }
 #logo_img1{
     float: left;
-    height: 159px;
-    width:100px;
+    height: 80px;
+    width:80px;
 }
 #img_pro {
     /* float:right; */
-    height: 106.2px;
-    width:100px;
-    /* border-radius: 50%; */
+    height: 80px;
+    width:80px;
+     border-radius: 50%;
 }
-
-#pro_bio_comp{
-    /* display: ; */
-    margin-right: 50%;
-    border: 1px solid black;
-    padding: 10px;
+#pro_photo{
+    /* border: 1px solid black; */
+  float: left;
+  position: relative;
+  margin-top: 5%;
+  left: 5%;
+  transform: scale(3);
+}
+#pro_pic_name{
+    display: inline-block;
+}
+#profileInfo {
+    position: relative;
+    left: 15%;
+}
+span{
+    font-family: inherit;
+}
+#name{
+    display: block;
+}
+/* #pro_bio_comp{ */
+    /* margin-right: 50%; */
+    /* border: 1px solid black; */
+    /* padding: 10px; */
  /* box-shadow: 10px 15px 25px white; */
- -moz-box-shadow: 0 0 10px 10px black;
--webkit-box-shadow: 0 0 10px 10px black;
-box-shadow: 0 0 10px 10px black;
-}
+ /* -moz-box-shadow: 0 0 10px 10px black; */
+/* -webkit-box-shadow: 0 0 10px 10px black; */
+/* box-shadow: 0 0 10px 10px black; */
+ /* } */
 #otherprofile_com{
+    margin-top:2%;
     display:block;
     height: 200px;
     width:200px;
     border: 2px solid black;
 }
+
 #otherprofile_container{
     display: flex;
     justify-content: center;
+    width: 500px;
 
+     overflow: auto;
     height:400px;
-    width: 600px;
+    /* width: 600px; */
     margin-left: 30%;
     margin-top: 8%;
     -moz-box-shadow: 0 0 10px 5px black, 40px -30px lime, 40px 30px 50px red, -40px 30px yellow, -40px -30px 50px blue;
 -webkit-box-shadow: 0 0 10px 5px black, 40px -30px lime, 40px 30px 50px red, -40px 30px yellow, -40px -30px 50px blue;
 box-shadow: 0 0 10px 5px black, 40px -30px lime, 40px 30px 50px red, -40px 30px yellow, -40px -30px 50px blue;
 }
-#friend_button{
+/* #friend_button{
     display:flex;
     margin-right: 40%;
-}
+} */
 #friend_button0{
-    padding-top: 330px;
-    margin-right: 40%;
+    padding-top: 33px;
+    /* margin-right: 40%; */
     /* display: inline-block; */
-}
+ }
 #otherprofile_comp{
-    margin-left: 40%;
+/* display: inline-block; */
+text-align: center;
 
 }
 .app_container{
@@ -144,21 +223,9 @@ box-shadow: 0 0 10px 5px black, 40px -30px lime, 40px 30px 50px red, -40px 30px 
     justify-content: space-between;
     color: blue;
     background-color: white;
+    height:80px;
 
 }
-/*
-
-
-/* .app_comp2{
-    float:left;
-    border: 2px solid black;
-    height:300px;
-    width:300px;
-  /* margin-top: 300px;
-  margin-bottom: 050px;
-  margin-right: 200px;
-  margin-left: 0px; */
-/* }  */
 .custom-file-upload:hover {
     filter: contrast(95%);
 }
@@ -206,7 +273,7 @@ box-shadow: 0 0 10px 5px black, 40px -30px lime, 40px 30px 50px red, -40px 30px 
     align-items: center;
     justify-content: center;
     background-color:blue;
-    width: 40%;
+    width: 30%;
     height: 70%;
     margin: auto;
     border-radius: 5%;

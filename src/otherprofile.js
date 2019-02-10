@@ -46,11 +46,12 @@ export class OtherProfile extends React.Component {
                         <h1>{this.state.first} {this.state.last}</h1>
                         <h3 className="aboutme">My Bio:{this.state.bio}</h3>
 
+
                     </div>
+                    <div id="friend_button0"> <FriendButton
+                        otherUserId = { this.props.match.params.id }
+                    /> </div>
                 </div>
-                <div id="friend_button0"> <FriendButton
-                    otherUserId = { this.props.match.params.id }
-                /> </div>
             </div>
 
         );

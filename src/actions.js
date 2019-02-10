@@ -26,7 +26,7 @@ export function acceptFriendRequest(wannabe_id) {
 }
 //////////////////////////////////////////
 export function unFriend(friend_id) {
-    return axios.post('/deletefriendship/' + friend_id , {action: 'REMOVE FRIEND'}).then(() => {
+    return axios.post('/deletefriendship/' + friend_id , {action: 'UNFRIEND'}).then(() => {
         return {
             type: "UNFRIEND",
             id: friend_id

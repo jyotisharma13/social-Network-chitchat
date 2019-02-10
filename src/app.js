@@ -6,11 +6,10 @@ import {Profile} from './profile';
 // import {BioEditor} from './bioEditor';
 import {Header} from "./header";
 import {OtherProfile} from './otherprofile';
-// import { Route} from 'react-router';
+
 import {BrowserRouter, Route} from 'react-router-dom';
 import Friends from './friends';
-// import ReactDOM from 'react-dom';
-// Change render to ReactDOM.render;
+
 
 export default class App extends React.Component{
     constructor(props){
@@ -132,5 +131,3 @@ export default class App extends React.Component{
         );
     }
 }
-// <Redirect path="*" to="/" />
-// <Route path="/user/:id" component={OtherProfile} />
