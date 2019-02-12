@@ -92,7 +92,6 @@ module.exports.getFriendshipLists = (id)=>{
     );
 };
 ///////////////////////////////////////////
-
 module.exports.updateBio = function(bio, id) {
     return db.query(`
         UPDATE users
@@ -100,5 +99,16 @@ module.exports.updateBio = function(bio, id) {
         WHERE id = $2
         RETURNING bio`,
     [ bio, id]
+    );
+};
+//////////////////////////////////////////////
+module.exports.getUsersByIds= function(arrayOfIds) {
+    return db.query(
+        `SELECT users.id AS id, first, last, img_url
+         FROM users
+       LEFT JOIN profile_pictures
+       ON users.id = profile_images.user_id
+       WHERE users.id = ANY($1)`,
+        [arrayOfIds]
     );
 };

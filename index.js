@@ -1,15 +1,33 @@
 const express = require('express');
 const app = express();
+/////////////socket io/////////////////
+const server = require('http').Server(app);
+//change origin if you want to put your socialnetwork  online
+const io = require('socket.io')(server, { origins: 'localhost:8080' });
+////////////////////////////////////////////////////////7
 const compression = require('compression');
-const cookieSession = require('cookie-session');
+// const cookieSession = require('cookie-session');
 const db = require('./db');
 const bcrypt = require('./bcrypt');
 const csurf = require('csurf');
 const s3 = require('./s3');
-app.use(cookieSession({
-    secret: `Token that the request came from my own site! :D`,
-    maxAge: 1000 * 60 * 60 * 24 * 14
-}));
+// app.use(cookieSession({
+//     secret: `Token that the request came from my own site! :D`,
+//     maxAge: 1000 * 60 * 60 * 24 * 14
+// }));
+/////////////////////////////////////socket/////////
+const cookieSession = require('cookie-session');
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+
+//////////////////////////////////////
 app.use(require('body-parser').json());
 app.use(compression());
 app.use(express.static('./public'));
@@ -216,6 +234,78 @@ app.get('*', function(req, res) {
     }
 });
 ////////////////////////////////////////////////////////////
-app.listen(8080, function() {
+server.listen(8080, function() {
     console.log("I'm listening.");
 });
+////////////////////////////socket////////////
+//part 8 this obj will keep track of whos online right now
+let onlineUsers ={};
+
+// all of your server-side socket code
+//goes inside here io.on
+io.on('connection', function(socket){
+//whenever a user logs in or register
+// this calll back will run!!!
+//part8 all the stuff you had in your session object should be
+    console.log('socket.request.session:',socket.request.session);// everysocket we can assign then need id. so we can check what that id looks like.
+    // socket is a object that represent the connection that just happen
+    ////////////////////////////////
+
+
+
+
+
+    onlineUsers[socket.id]= socket.request.session.userId;
+    console.log('onlineUsers:',onlineUsers);
+    let userIds = object.values(onlineUsers);
+    //object.values takes all values out of an object
+    // and puts them in array
+    console.log('userIds:', userIds);
+
+    db.getUsersByIds(userIds).then(results=>{
+
+        //results then should be the first, last and profile pics of every user in the userIds arary
+        //our endgoal is to put results in redux
+    });
+//user joined data flo
+//new person joins. goto db and get loginInfo of the user just join
+//once you have the object, BroadCast it.
+
+
+
+
+
+
+
+
+
+//user left dataflow
+socket.on('disconnect', function(){
+    //when this function runs, that means some one has just left our webside
+    // remove disconnected peron from onlineUsers Obj and remove them from redux
+    // we have to every one know that person has just left
+    //io.sockets.emit
+    // so everybody update the redux accordingly
+    //
+
+});
+////////////////////////////////////////
+//     //send message from server to client using sockets
+//     //emit ensds message from server to client
+//     //first arg = name of the message we want to send
+//     // second arg = the actual message we wnt too send
+//
+//     //emit sends a message to the socket that just connected
+//     socket.emit('MyFirstEmit',{
+//         name:'ivana'
+//     });
+//     //boardcast sends message to every connected socket
+//     // EXCEPT the one that just connected
+//     socket.broadcast.emit('myBroadcast', {
+//         food:'sirnica'
+//     });
+//     // io.sckets.emit sends a message to everyone
+//     io.sockets.emit('checkyourmessage', {
+//         message:'you are loved'
+//     });
+// });

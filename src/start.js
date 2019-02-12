@@ -7,6 +7,7 @@ import reduxPromise from 'redux-promise';
 import{ reducer} from './reducers';
 import{ Provider} from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import{ initSocket} from './socket';
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
 // const elem = (<Provider store={store}><App /></Provider>);
@@ -18,9 +19,11 @@ if (location.pathname == '/welcome') {
 } else {
     // thingToRender = <img src="/logo.png" />;
     // thingToRender = <App />;
-    thingToRender =<Provider store={store}>
+    thingToRender = (initSocket(store),
+    <Provider store={store}>
         <App />
-    </Provider>;
+    </Provider>
+    );
 }
 ReactDOM.render(
     thingToRender,
