@@ -42,7 +42,7 @@ module.exports.addImage = function(img_url, user_id) {
         [img_url, user_id]
     );
 };
-/////////////////////////////////7
+
 
 //////////////////////////////////////////////
 module.exports.getInitialFriendship = (loggedInId, otherUserId)=>{
@@ -106,9 +106,31 @@ module.exports.getUsersByIds= function(arrayOfIds) {
     return db.query(
         `SELECT users.id AS id, first, last, img_url
          FROM users
-       LEFT JOIN profile_pictures
+       LEFT JOIN profile_images
        ON users.id = profile_images.user_id
        WHERE users.id = ANY($1)`,
         [arrayOfIds]
+    );
+};
+//////////////////////////////////////////////
+module.exports.getChatMessages = function() {
+    return db.query(
+        `SELECT users.id AS sender_id, users.first AS sender_first, users.last AS sender_last, profile_images.img_url AS sender_url, message, chatmessages.id AS message_id, chatmessages.created_at AS message_created_at
+        FROM chatmessages
+        LEFT JOIN users
+        ON chatmessages.user_id = users.id
+        LEFT JOIN profile_images
+        ON chatmessages.user_id = profile_images.user_id
+        ORDER BY chatmessages.created_at DESC
+        LIMIT 10`
+    );
+};
+////////////////////////////////////////////
+module.exports.addChatMessage = function(message, user_id) {
+    return db.query(
+        `INSERT INTO chatmessages (message, user_id)
+        VALUES ($1, $2)
+        RETURNING *`,
+        [message, user_id]
     );
 };

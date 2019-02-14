@@ -26,10 +26,54 @@ export function acceptFriendRequest(wannabe_id) {
 }
 //////////////////////////////////////////
 export function unFriend(friend_id) {
-    return axios.post('/deletefriendship/' + friend_id , {action: 'UNFRIEND'}).then(() => {
+    return axios.post('/deletefriendship/' + friend_id ).then(() => {
         return {
             type: "UNFRIEND",
             id: friend_id
         };
     });
+}
+//////////////////////////////////////////////7
+export function addUserId(id) {
+    return {
+        type: "ADD_USER_ID",
+        userId: id
+    };
+}
+////////////////////////////////////////////77
+export function createOnlineUsersList(users) {
+    return {
+        type: "CREATE_ONLINE_USERS_LIST",
+        users: users
+    };
+}
+///////////////////////////////
+
+export function addToOnlineusersList(user) {
+    return {
+        type: "ADD_ONLINE_USERS_LIST",
+        user: user
+    };
+}
+/////////////////////////////////////////////
+
+export function removeFromOnlineUsersList(id) {
+    return {
+        type: "REMOVE_ONLINE_USERS_LIST",
+        id: id
+    };
+}
+///////////////////////////////////////
+export function receiveChatMessages(messages) {
+    return {
+        type: "LOAD_CHAT_MESSAGES",
+        messages: messages
+    };
+}
+/////////////////////////////////////////
+export function addChatMessage(newMessage) {
+    return {
+        type: "ADD_CHAT_MESSAGE",
+        newMessage: newMessage
+    };
 }

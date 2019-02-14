@@ -1,7 +1,7 @@
 import React from 'react';
 import {ProfilePic} from './profilePic';
 
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export function Header(props) {
     return (
@@ -16,12 +16,15 @@ export function Header(props) {
                     pro_pic_Url={props.pro_pic_Url}
                     showUploader={props.showUploader}
                 />
-                <a href ="/">{props.first}</a>
-                <a href="/logout" id="logoutLink"><p>Logout</p></a>
+                <Link to="/" id="profileLink"><p>{props.first}</p></Link>
+                <Link to="/chat" id="chatlink"><p>CHAT</p></Link>
+                <div>
 
+                    <Link to="/online" id="onlinelink"><img src ="/online.jpg"/></Link>
+                    <Link to="/friends" id="friendslink"><img src="/friends.jpg" /></Link>
+                    <a href="/logout" id="logoutLink"><img src="/logout.jpg"/></a>
+                </div>
             </div>
         </header>
     );
 }
-// <Link to="/" id="profileLink"><p>{this.props.first}</p></Link>
-// <Link to="/friends" id="friendslink"><p>Friends</p></Link>

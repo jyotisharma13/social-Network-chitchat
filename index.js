@@ -238,58 +238,76 @@ server.listen(8080, function() {
     console.log("I'm listening.");
 });
 ////////////////////////////socket////////////
-//part 8 this obj will keep track of whos online right now
-let onlineUsers ={};
+let onlineUsers = {};
 
-// all of your server-side socket code
-//goes inside here io.on
-io.on('connection', function(socket){
-//whenever a user logs in or register
-// this calll back will run!!!
-//part8 all the stuff you had in your session object should be
-    console.log('socket.request.session:',socket.request.session);// everysocket we can assign then need id. so we can check what that id looks like.
-    // socket is a object that represent the connection that just happen
-    ////////////////////////////////
+io.on('connection', function(socket) {
 
+    if (!socket.request.session || !socket.request.session.userId) {
+        return socket.disconnect(true);
+    }
 
+    const userId = socket.request.session.userId;
+    socket.emit('userId', userId);
+    onlineUsers[socket.id] = userId;
 
+    let userIds = Object.values(onlineUsers);
 
-
-    onlineUsers[socket.id]= socket.request.session.userId;
-    console.log('onlineUsers:',onlineUsers);
-    let userIds = object.values(onlineUsers);
-    //object.values takes all values out of an object
-    // and puts them in array
-    console.log('userIds:', userIds);
-
-    db.getUsersByIds(userIds).then(results=>{
-
-        //results then should be the first, last and profile pics of every user in the userIds arary
-        //our endgoal is to put results in redux
+    //onlineUsers data flow
+    db.getUsersByIds(userIds).then(results => {
+        socket.emit('onlineUsers', results.rows.filter(
+            i => {
+                if (i.id == userId) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        ));
     });
-//user joined data flo
-//new person joins. goto db and get loginInfo of the user just join
-//once you have the object, BroadCast it.
 
+    //userJoined data flow
+    var filteredOwnUserIds = userIds.filter(id => id == userId);
+    if (filteredOwnUserIds.length == 1) {
+        db.getUserInfo(userId).then(results => {
+            socket.broadcast.emit('userJoined', results.rows);
+        });
+    }
 
+    //userLeft data flow
+    socket.on('disconnect', function() {
+        delete onlineUsers[socket.id];
+        if (Object.values(onlineUsers).indexOf(userId) == -1) {
+            io.sockets.emit('userLeft', userId);
+        }
+    });
+    //load chatMessages data flow
+    db.getChatMessages().then(results => {
+        socket.emit('chatMessages', results.rows);
+    }).catch(err => {
+        console.log("error while loading chatMessages: ", err);
+    });
 
-
-
-
-
-
-
-//user left dataflow
-socket.on('disconnect', function(){
-    //when this function runs, that means some one has just left our webside
-    // remove disconnected peron from onlineUsers Obj and remove them from redux
-    // we have to every one know that person has just left
-    //io.sockets.emit
-    // so everybody update the redux accordingly
-    //
-
+    //add chatMessage data flow
+    socket.on('chatMessageFromUserInput', async text => {
+        const userInfo = await db.getUserInfo(userId);
+        let newMessage = {
+            message: text,
+            sender_first: userInfo.rows[0].first,
+            sender_last: userInfo.rows[0].last,
+            sender_id: userInfo.rows[0].id,
+            sender_url: userInfo.rows[0].img_url
+        };
+        db.addChatMessage(newMessage.message, newMessage.sender_id).then(dbInfo => {
+            newMessage.message_id = dbInfo.rows[0].id;
+            newMessage.message_created_at = dbInfo.rows[0].created_at;
+            io.sockets.emit('chatMessageFromServer', newMessage);
+        }).catch(err => {
+            console.log("error while adding new chatmessage: ", err);
+        });
+    });
 });
-////////////////////////////////////////
+//////////////////////////////
+
 //     //send message from server to client using sockets
 //     //emit ensds message from server to client
 //     //first arg = name of the message we want to send
@@ -309,3 +327,4 @@ socket.on('disconnect', function(){
 //         message:'you are loved'
 //     });
 // });
+///////////////////////////////////////

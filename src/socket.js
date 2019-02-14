@@ -1,7 +1,7 @@
 // all of our front end code eill go here
 
 import * as io from 'socket.io-client';
-import {createOnlineUsersList, addUserId, addToOnlineusersList, removeFromOnlineUsersList} from './actions';
+import {createOnlineUsersList, addUserId, addToOnlineusersList, removeFromOnlineUsersList, addChatMessage, receiveChatMessages} from './actions';
 
 let socket;
 
@@ -25,5 +25,16 @@ export function initSocket(store) {
         socket.on('userLeft', user => {
             store.dispatch(removeFromOnlineUsersList(user));
         });
+        socket.on('chatMessages', messages => {
+            store.dispatch(receiveChatMessages(messages));
+        });
+
+        socket.on('chatMessageFromServer', (newMessage) => {
+            store.dispatch(addChatMessage(newMessage));
+        });
+
     }
+    return socket;
 }
+// user first name last name and picture in cookieSession
+// for getting the information about the chat user then we usse to write the database query for that where user_id

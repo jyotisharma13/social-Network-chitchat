@@ -9,8 +9,8 @@ import {OtherProfile} from './otherprofile';
 
 import {BrowserRouter, Route} from 'react-router-dom';
 import Friends from './friends';
-
-
+import {ConnectedOnlineUsers} from './onlineusers';
+import {ConnectedChatMessages} from './chatmessages';
 export default class App extends React.Component{
     constructor(props){
         super(props);
@@ -69,15 +69,18 @@ export default class App extends React.Component{
     render(){
         return(
             <div>
-                <img id="logo_img1" src="/logo.png" />
-                <Header
-                    first={this.state.first}
-                    last={this.state.last}
-                    pro_pic_Url={this.state.pro_pic_Url}
-                    showUploader={this.showUploader}
-                />
+
                 <BrowserRouter>
                     <div>
+                        <img id="logo_img1" src="/logo.png" />
+
+                        <Header
+                            first={this.state.first}
+                            last={this.state.last}
+                            pro_pic_Url={this.state.pro_pic_Url}
+                            showUploader={this.showUploader}
+                        />
+
                         <Route
                             exact
                             path="/"
@@ -124,6 +127,14 @@ export default class App extends React.Component{
                             path="/friends"
                             component=
                                 {Friends}
+                        />
+                        <Route
+                            path ="/online"
+                            component={ConnectedOnlineUsers}
+                        />
+                        <Route
+                            path ="/chat"
+                            component={ConnectedChatMessages}
                         />
                     </div>
                 </BrowserRouter>
