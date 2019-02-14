@@ -290,12 +290,13 @@ io.on('connection', function(socket) {
     //add chatMessage data flow
     socket.on('chatMessageFromUserInput', async text => {
         const userInfo = await db.getUserInfo(userId);
+        console.log('userinfo:', userInfo);
         let newMessage = {
             message: text,
             sender_first: userInfo.rows[0].first,
             sender_last: userInfo.rows[0].last,
             sender_id: userInfo.rows[0].id,
-            sender_url: userInfo.rows[0].img_url
+            sender_url: userInfo.rows[0].url
         };
         db.addChatMessage(newMessage.message, newMessage.sender_id).then(dbInfo => {
             newMessage.message_id = dbInfo.rows[0].id;

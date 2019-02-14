@@ -34,9 +34,10 @@ class ChatMessages extends React.Component {
             textOfMessage: e.target.value
         });
     }
-    sendMessage() {
-        console.log('mesaage send');
+    sendMessage(e) {
+        console.log('message send');
         initSocket().emit('chatMessageFromUserInput', this.state.textOfMessage);
+        e.preventDefault();
         this.setState({
             textOfMessage: ''
         });
@@ -68,8 +69,11 @@ class ChatMessages extends React.Component {
                         )}
                     </div>}
                     <div className="chatMessageInput">
-                        <textarea value={this.state.textOfMessage} onChange={this.handleChange} />
+                        <textarea value={this.state.textOfMessage} onChange={this.handleChange} name="chat"
+                            placeholder="Write a message here"
+                        />
                         <button onClick={this.sendMessage}>SEND</button>
+
                     </div>
                 </div>
 

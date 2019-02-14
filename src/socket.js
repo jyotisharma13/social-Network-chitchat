@@ -1,4 +1,6 @@
-// all of our front end code eill go here
+// all of our front end code will go here
+// user first name last name and picture in cookieSession
+// for getting the information about the chat user then we usse to write the database query for that where user_id
 
 import * as io from 'socket.io-client';
 import {createOnlineUsersList, addUserId, addToOnlineusersList, removeFromOnlineUsersList, addChatMessage, receiveChatMessages} from './actions';
@@ -30,11 +32,11 @@ export function initSocket(store) {
         });
 
         socket.on('chatMessageFromServer', (newMessage) => {
+            console.log('hello new messsage', newMessage);
             store.dispatch(addChatMessage(newMessage));
+
         });
 
     }
     return socket;
 }
-// user first name last name and picture in cookieSession
-// for getting the information about the chat user then we usse to write the database query for that where user_id
