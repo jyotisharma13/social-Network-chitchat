@@ -84,6 +84,26 @@ export function reducer(state={}, action) {
         console.log("state.chatMessages after concat: ", state.chatMessages);
         return state;
     }
+    if (action.type == 'LOAD_FRIEND_MESSAGES') {
+        state = { ...state, friendMessages : action.messages.reverse() };
+        return state;
+    }
+    if (action.type == 'ADD_FRIEND_MESSAGE') {
+        if (state.friendMessages) {
+            state = { ...state, friendMessages : state.friendMessages.concat(action.newMessage) };
+        } else {
+            state = { ...state, friendMessages : [action.newMessage]};
+        }
+        return state;
+    }
+    if (action.type == 'RECENT_FRIEND') {
+        state = { ...state, recentFriend : action.id };
+        return state;
+    }
+    if (action.type == 'RECENT_FRIEND_REMOVE') {
+        state = { ...state, recentFriend : false };
+        return state;
+    }
 
     return state;
 }

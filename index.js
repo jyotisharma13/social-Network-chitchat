@@ -306,6 +306,45 @@ io.on('connection', function(socket) {
             console.log("error while adding new chatmessage: ", err);
         });
     });
+
+    //load friendMessages data flow
+    socket.on('showFriendMessagesFromUserInput', friendship_id => {
+        db.getFriendMessages(friendship_id).then(results => {
+            socket.emit('friendMessages', results.rows);
+        }).catch(err => {
+            console.log("error while loading friendMessages: ", err);
+        });
+    });
+
+    //add friendMessage data flow
+    socket.on('newFriendMessageFromUserInput', async info => {
+        const userInfo = await db.getUserAppInfo(userId);
+        let newFriendMessage = {
+            message: info.text,
+            sender_first: userInfo.rows[0].first,
+            sender_last: userInfo.rows[0].last,
+            sender_id: userInfo.rows[0].id,
+            sender_url: userInfo.rows[0].url,
+            friendship_id: info.friendship_id
+        };
+        db.addFriendMessage(newFriendMessage.message, newFriendMessage.sender_id, newFriendMessage.friendship_id).then(dbInfo => {
+            newFriendMessage.message_id = dbInfo.rows[0].id;
+            newFriendMessage.message_created_at = dbInfo.rows[0].created_at;
+            io.sockets.emit('newFriendMessageFromServer', newFriendMessage);
+        }).catch(err => {
+            console.log("error while adding new chatmessage: ", err);
+        });
+    });
+
+    socket.on('reloadFriendMessages', friendship_id => {
+        socket.emit('reloadFriendMessages', friendship_id);
+    });
+
+    socket.on('hideFriendMessages', () => {
+        socket.emit('hideFriendMessages');
+    });
+
+
 });
 //////////////////////////////
 

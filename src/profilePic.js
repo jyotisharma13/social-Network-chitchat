@@ -14,6 +14,7 @@ export function ProfilePic(props){
         <div>
             <div id="pro_pic" onClick={props.showUploader}>
                 <img id="img_pro" src={url} />
+                
             </div>
 
         </div>

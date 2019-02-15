@@ -11,6 +11,7 @@ class ChatMessages extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
+        this.handleKeyPress=this.handleKeyPress.bind(this);
     }
     componentDidUpdate() {
         console.log('this.elem::::::in update', this.elem);
@@ -28,6 +29,11 @@ class ChatMessages extends React.Component {
         }
         this.elem.scrollTop = this.elem.scrollHeight;
         // this.elem.scrollTop = this.elem.scrollTop;
+    }
+    handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            this.submit();
+        }
     }
     handleChange(e) {
         this.setState({
@@ -57,7 +63,7 @@ class ChatMessages extends React.Component {
                                 return (
                                     <div key={msg.message_id} className="chatMessageItem">
                                         <Link to={`/user/${msg.sender_id}`} className="chatMessageItemPicture">
-                                            <img src={msg.sender_url || '/defaultimage.jpg'} />
+                                            <img src={ msg.sender_url || '/defaultimage.jpg'} />
                                         </Link>
                                         <div className="chatMessageItemInfo">
                                             <p><span className="message-sender">{msg.sender_first} {msg.sender_last}</span> <span className="message-date">on {msg.message_created_at.slice(0,10)}, {msg.message_created_at.slice(14,19)}</span></p>
@@ -68,12 +74,11 @@ class ChatMessages extends React.Component {
                             }
                         )}
                     </div>}
-                    <div className="chatMessageInput">
+                    <div onKeyPress = {this.handleKeyPress} className="chatMessageInput">
                         <textarea value={this.state.textOfMessage} onChange={this.handleChange} name="chat"
                             placeholder="Write a message here"
                         />
                         <button onClick={this.sendMessage}>SEND</button>
-
                     </div>
                 </div>
 

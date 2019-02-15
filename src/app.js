@@ -11,6 +11,8 @@ import {BrowserRouter, Route} from 'react-router-dom';
 import Friends from './friends';
 import {ConnectedOnlineUsers} from './onlineusers';
 import {ConnectedChatMessages} from './chatmessages';
+import {ConnectedFriendMessages} from './friendmessages';
+
 export default class App extends React.Component{
     constructor(props){
         super(props);
@@ -80,13 +82,11 @@ export default class App extends React.Component{
                             pro_pic_Url={this.state.pro_pic_Url}
                             showUploader={this.showUploader}
                         />
-
                         <Route
                             exact
                             path="/"
                             render={() => (
                                 <div className="app_container">
-
                                     <div className="app_comp2">
                                         <Profile
                                             id={this.state.id}
@@ -116,21 +116,29 @@ export default class App extends React.Component{
                         <Route
                             path="/user/:id"
                             render={props => (
-                                <OtherProfile
-                                    key={props.match.url}
-                                    match={props.match}
-                                    history={props.history}
-                                />
+                                <div key={props.match.url}>
+                                    <OtherProfile
+                                        match={props.match}
+                                        history={props.history}
+                                    />
+                                    <ConnectedFriendMessages
+                                        match={props.match}
+                                    />
+                                </div>
                             )}
                         />
+
                         <Route
                             path="/friends"
-                            component=
-                                {Friends}
+                            component={Friends}
                         />
                         <Route
-                            path ="/online"
-                            component={ConnectedOnlineUsers}
+                            path="/online"
+                            render={() => (
+                                <div>
+                                    <ConnectedOnlineUsers />
+                                </div>
+                            )}
                         />
                         <Route
                             path ="/chat"
@@ -142,3 +150,19 @@ export default class App extends React.Component{
         );
     }
 }
+// <Route
+//     path="/user/:id"
+//     render={props => (
+//         <OtherProfile
+//             key={props.match.url}
+//             match={props.match}
+//             history={props.history}
+//
+//         />
+//     )}
+// />
+// <Route
+//     path ="/online"
+//     component={ConnectedOnlineUsers}
+//
+// />

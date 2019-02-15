@@ -29,7 +29,7 @@ export class OtherProfile extends React.Component {
                     id: results.data.rows[0].id,
                     first:results.data.rows[0].first,
                     last: results.data.rows[0].last,
-                    pro_pic_Url: results.data.rows[0].url,
+                    pro_pic_Url: results.data.rows[0].url ||'/defaultimage.jpg' ,
                     bio: results.data.rows[0].bio || 'No bio yet.'
                 });
             }
